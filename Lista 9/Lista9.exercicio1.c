@@ -26,9 +26,10 @@ typedef struct candidato {
 
 void main()
 {
-    int i,n,cand,opcao;
+    // Letra a
+    int i,n,opcao;
 
-    printf("Quantos candidatos estao presentes? \n");
+    printf("\nQuantos candidatos estao presentes? \n");
     scanf("%d", &n);
 
     Candidato *curriculo = (Candidato *) malloc(n*sizeof(Candidato));
@@ -36,13 +37,9 @@ void main()
     {
         exit(1);
     }
-    for (i=0;i<n;i++)
-    {
-        curriculo->nome[i]=NULL;
-    }
 
-    Local *loc = (Local *) malloc(n*sizeof(Local));
-    if (loc==NULL)
+    Local *locAux = (Local *) malloc(n*sizeof(Local));
+    if (locAux==NULL)
     {
         exit(1);
     }
@@ -51,41 +48,40 @@ void main()
     do
     {
         //Letra b
-        printf("Digite qual opcao voce quer: (0)-Finaliza o programa, (1)-Leitura de dados, (2)-Impressao dos dados, (3)-Alteracao do local da prova de um candidato especifico\n");
+        printf("\nDigite qual opcao voce quer: (0)-Finaliza o programa, (1)-Leitura de dados, (2)-Impressao dos dados, (3)-Alteracao do local da prova de um candidato especifico\n");
         scanf("%d", &opcao);
         fflush(stdin);
         if(opcao==1)
         {
             for (i=0;i<n;i++)
             {
-                curriculo[i].inscr = i;
-                printf("\nCandidato %d: ", curriculo[i].inscr);
+                curriculo[i].inscr = i+1;
+                printf("\nNome do Candidato %d: ", curriculo[i].inscr);
                 gets(curriculo[i].nome);
 
-                Data nasc;
                 printf("\nDigite a data de nascimento do candidato: ");
-                scanf("%d %d %d", &nasc.dia,&nasc.mes,&nasc.ano);
+                scanf("%d/%d/%d", &curriculo[i].nasc.dia,&curriculo[i].nasc.mes,&curriculo[i].nasc.ano);
                 fflush(stdin);
-                curriculo[i].nasc = nasc;
 
-                printf("\nDigite o local: ");
-                gets(loc[i].ender);
+                printf("\nDigite o local da prova: ");
+                gets(locAux[i].ender);
                 printf("Digite a sala da prova: ");
-                scanf("%d", &loc[i].sala);
+                scanf("%d", &locAux[i].sala);
                 fflush(stdin);
-                curriculo[i].loc = &loc[i];
+                curriculo[i].loc = &locAux[i];
 
-                Notas nt;
-                printf("\nDigite a nota geral e a nota especifica: ");
-                scanf("%f %f", &nt.geral, &nt.especifica);
+                printf("\nDigite a nota geral do candidato: ");
+                scanf("%f", &curriculo[i].nt.geral);
                 fflush(stdin);
-                curriculo[i].nt = nt;
+                printf("Digite a nota especifica do candidato: ");
+                scanf("%f", &curriculo[i].nt.especifica);
+                fflush(stdin);
             }
         }
 
         if (opcao==2)
         {
-            if (curriculo->nome[0]==NULL)
+            if (curriculo[0].inscr==NULL)
             {
                 printf("Nao possui nenhum cadastro!\n");
             }
@@ -105,16 +101,17 @@ void main()
         // Letra c
         if(opcao==3)
         {
-            printf("Digite qual candidato voce quer alterar o endereco e sala da prova: ");
+            int cand;
+            printf("Digite a inscricao do candidato que voce quer alterar o endereco e sala da prova: ");
             scanf("%d", &cand);
             fflush(stdin);
-            gets(loc[cand].ender);
-            scanf("%d", &loc[cand].sala);
+            gets(locAux[cand-1].ender);
+            scanf("%d", &locAux[cand].sala);
             fflush(stdin);
-            curriculo[i].loc = &loc[i];
+            curriculo[i].loc = &locAux[i];
         }
     }while (opcao!=0);
 
     free(curriculo);
-    free(loc);
+    free(locAux);
 }
