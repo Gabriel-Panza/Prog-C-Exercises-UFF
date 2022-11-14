@@ -12,7 +12,7 @@ PilhaEnc* inicializa()
     return NULL;
 }
 
-PilhaEnc* insere(PilhaEnc *p, int num)
+PilhaEnc* push(PilhaEnc *p, int num)
 {
     PilhaEnc *novo = (PilhaEnc*) malloc(sizeof(PilhaEnc));
     novo->dado = num;
@@ -20,7 +20,7 @@ PilhaEnc* insere(PilhaEnc *p, int num)
     return novo;
 }
  
-PilhaEnc* remover(PilhaEnc *p)
+PilhaEnc* pop(PilhaEnc *p)
 {
     if (!p) // p==NULL
         return p;
@@ -42,19 +42,19 @@ int main()
 {
     PilhaEnc *p = inicializa();
 
-    p = insere(p, 1);
-    p = insere(p, 2);
-    p = insere(p, 3);
-    p = insere(p, 4);
-    p = insere(p, 5);
+    p = push(p, 1);
+    p = push(p, 2);
+    p = push(p, 3);
+    p = push(p, 4);
+    p = push(p, 5);
 
     printa(p);
 
-    p = remover(p);
+    p = pop(p);
 
     printa(p);
 
-    p = insere(p,6);
+    p = push(p,6);
 
     printa(p);
 }

@@ -22,6 +22,7 @@ FilaEnc* insere(FilaEnc *f, int num)
         novo->prox = NULL;
         return novo;
     }
+
     // CASO 2: Fila nao vazia/nula
     FilaEnc *aux = f;
     while(aux->prox) // aux->prox != NULL
@@ -45,7 +46,7 @@ FilaEnc* remover(FilaEnc *f)
 void printa(FilaEnc *f)
 {
     FilaEnc *aux = f;
-    while(aux)
+    while(aux) // aux != NULL 
     {
         printf("[%d]->", aux->dado);
         aux = aux->prox;
