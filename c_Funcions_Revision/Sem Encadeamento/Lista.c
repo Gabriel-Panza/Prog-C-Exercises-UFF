@@ -1,15 +1,21 @@
 #include<stdio.h>
-#define MAX 5
 
 typedef struct LISTA 
 {
-    int dado[MAX];
+    int *dado;
     int total;
 }lista;
 
-void insere (lista *L, int elem)
+lista inicializa(lista *l, int tam)
 {
-    if (L->total<MAX)
+    int* dadoAux = (int*) malloc(tam * sizeof(int));
+    l->dado = dadoAux;
+    return l;
+}
+
+void insere (lista *L, int elem, int tam)
+{
+    if (L->total<tam)
     {
         L->dado[L->total] = elem;
         L->total++;
@@ -116,18 +122,23 @@ void ordena(lista *L)
 
 int main()
 {
-    lista L;
-    L.total=0;
-    int elem = 1, pos = 0;
-
-    insere (&L, elem);
-    insere (&L, elem+1);
-    insere (&L, elem+2);
+    lista L = inicializa(L,tam);
+    int tam;
+    scanf("%d", &tam);
     
-    busca (&L, elem+1, &pos);
+    L.total=0;
+    int elem, pos = 0;
+
+    for (int i=0;i<tam;i++)
+    {
+        scanf("%d", &elem)
+        insere (&L, elem, tam);
+    }
+
+    pos = busca (&L, elem, &pos);
     printa(&L);
 
-    busca_binaria (&L, elem+4, 0, L.total-1);
+    pos = busca_binaria (&L, elem, 0, L.total-1);
     printa(&L);
 
     return 0;
