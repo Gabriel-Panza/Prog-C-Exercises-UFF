@@ -37,9 +37,9 @@ tLista* insereElemento(tLista *lista, int elem){
 
 // funcao para inserir elemento no final
 tLista* insereElementoFinal(tLista *lista, int elem){
-    if(lista == NULL){
+    if(lista == NULL)
         return insereElemento(lista, elem); 
-    }
+
     tLista *aux = lista; // ponteiro aux para percorrer a lista
     while(aux->prox != NULL){
         aux = aux->prox; // procura o ultimo elem da lista
@@ -51,6 +51,7 @@ tLista* insereElementoFinal(tLista *lista, int elem){
     return lista;
 }
 
+// funcao que remove um elemento da lista
 tLista *retira_rec(tLista *l, int elem)
 {
     // CASO 1
@@ -67,9 +68,8 @@ tLista *retira_rec(tLista *l, int elem)
 
 // funcao para buscar um elemento na lista
 int buscaElemento(tLista *lista, int elem){
-    if(lista == NULL){
+    if(lista == NULL)
         return -1;
-    }
 
     tLista* aux = lista;
     while(aux != NULL){
@@ -81,70 +81,74 @@ int buscaElemento(tLista *lista, int elem){
 }
 
 // funcao para fazer a uniao dos conjuntos
-tLista *uniao(tLista *lista1, tLista *lista2){
-    if(lista1 == NULL){ // se l1 tiver vazia, a uniao eh a l2
+tLista *uniao(tLista *lista1, tLista *lista2, tLista *lista3){
+    if(lista1 == NULL) // se l1 tiver vazia, a uniao eh a l2
         return lista2;
-    }
-    if(lista2 == NULL){ // se l2 tiver vazia, a uniao eh a l1
+    if(lista2 == NULL) // se l2 tiver vazia, a uniao eh a l1
         return lista1;
-    }
 
+    lista3 = lista1;
     tLista *aux2;
     for(aux2 = lista2; aux2 != NULL; aux2 = aux2->prox){ // a cada iteracao adiciona o elemento de l2 em l1
         if (buscaElemento(lista1,aux2->info) == -1)
-            lista1 = insereElementoFinal(lista1, aux2->info);
+            lista3 = insereElementoFinal(lista1, aux2->info);
     }
-    return lista1;
+    return lista3;
 }
 
 // funcao para fazer a diferenca das listas
-tLista *diferenca(tLista *lista1, tLista *lista2){ // elementos q estao em l1 mas q nao estao em l2
-    if(lista1 == NULL){ // se l1 tiver vazia, a uniao eh a l2
+tLista *diferenca(tLista *lista1, tLista *lista2, tLista *lista3){ // elementos q estao em l1 mas q nao estao em l2
+    if(lista1 == NULL) // se l1 tiver vazia, a uniao eh a l2
         return lista2;
-    }
-    if(lista2 == NULL){ // se l2 tiver vazia, a uniao eh a l1
+    if(lista2 == NULL) // se l2 tiver vazia, a uniao eh a l1
         return lista1;
-    }
 
+    lista3 = lista1;
     tLista *aux2;
     for(aux2 = lista2; aux2 != NULL; aux2 = aux2->prox){ // a cada iteracao adiciona o elemento de l2 em l1
         if (buscaElemento(lista1,aux2->info) == 1)
-            lista1 = retira_rec(lista1,aux2->info);
+            lista3 = retira_rec(lista1,aux2->info);
         else
-            lista1 = insereElementoFinal(lista1, aux2->info);
+            lista3 = insereElementoFinal(lista1, aux2->info);
     }
     return lista1;
 }
 
 // funcao de pertinencia entre listas
-int pertinencia(tLista *lista1, tLista *lista2){
+int pertinencia(tLista *lista1, int tam1, tLista *lista2, int tam2){
     // se uma das listas estiver vazia a outra lista esta contida nela pois em todo conj existe o vazio
-    if(lista1 == NULL || lista2 == NULL){
+    if(lista1 == NULL || lista2 == NULL)
         return 1; // se l1 ou l2 estiverem vazias retorna true 
+    
+    if (tam1<tam2)
+    { 
+        for(tLista *aux1 = lista1; aux1 != NULL; aux1 = aux1->prox){ // enquanto esse percorre toda a l2
+            if(buscaElemento(lista2,aux1->info) == -1) // se l1->info nao estiver dentro da l2, significa que o elemento nao pertence a l2, logo nao esta contido
+                return -1;
+        }
     }
-
-    tLista *aux1;
-    for(aux1 = lista1; aux1 != NULL; aux1 = aux1->prox){ // enquanto esse percorre toda a l2
-        if(buscaElemento(lista2,aux1->info) == -1){ // se l1->info nao estiver dentro da l2, significa que o elemento nao pertence a l2, logo nao esta contido
-            return -1;
+    else
+    {
+        for(tLista *aux2 = lista2; aux2 != NULL; aux2 = aux2->prox){ // enquanto esse percorre toda a l2
+            if(buscaElemento(lista1,aux2->info) == -1) // se l1->info nao estiver dentro da l2, significa que o elemento nao pertence a l2, logo nao esta contido
+                return -1;
         }
     }
     return 1;
 }
 
 // funcao para fazer a intersecao das listas
-tLista *intersecao(tLista *lista1, tLista *lista2){
-    if(lista1 == NULL || lista2 == NULL){
+tLista *intersecao(tLista *lista1, tLista *lista2, tLista *lista3){
+    if(lista1 == NULL || lista2 == NULL)
         return NULL; // se uma das listas forem vazias retorna null pq nao tem intersecao
-    }
 
-    tLista *aux1; // crio 2 ponteiros auxiliares p percorrer as duas listas
-    for(aux1=lista1; aux1 != NULL; aux1 = aux1->prox){ // enquanto percorrre toda a lista 2 para comparar
-        if(buscaElemento(lista2, aux1->info) != 1){
-            lista1 = retira_rec(lista1,aux1->info);
-        }
+    lista3 = lista1;
+    tLista *aux3; // crio 2 ponteiros auxiliares p percorrer as duas listas
+    for(aux3=lista3; aux3 != NULL; aux3 = aux3->prox){ // enquanto percorrre toda a lista 2 para comparar
+        if(buscaElemento(lista2, aux3->info) != 1)
+            lista3 = retira_rec(lista3,aux3->info);
     }
-    return lista1;
+    return lista3;
 }
 
 // funcao para imprimir a lista
@@ -181,48 +185,50 @@ int main(){
         L2 = insereElementoFinal(L2, el);
     }
 
+    do{
+        menu();
+        printf("Digite a operacao desejada: \n");
+        scanf("%d", &op);
+        fflush(stdin);
 
-    menu();
-    printf("Digite a operacao desejada: \n");
-    scanf("%d", &op);
-    fflush(stdin);
+        switch(op){
+            case 1:
+                L3 = uniao(L1, L2, L3);
+                imprimeLista(L3);
+                break;
+            case 2:
+                L3 = diferenca(L1, L2, L3);
+                imprimeLista(L3);
+                break;
+            case 3:
+                if(pertinencia(L1,x,L2,y) == 1){
+                    printf("um conjunto esta contido no outro \n");
+                } else{
+                    printf("um conjunto nao esta contido no outro \n");
+                }
+                break;
+            case 4:
+                L3 = intersecao(L1, L2, L3);
+                imprimeLista(L3);
+                break;
+            case 5:
+                printf("Conjunto 1: \n");
+                imprimeLista(L1);
+                printf("=================================\n");
+                printf("Conjunto 2: \n");
+                imprimeLista(L2);
+                printf("=================================\n");
+                printf("Conjunto 3: \n");
+                imprimeLista(L3);
+                printf("=================================\n");
+                break;
+            case 6:
+                break;
+            default:
+                printf("Operacao invalida! \n");
+                break;
+        }
+    } while(op!=6);
 
-    switch(op){
-        case 1:
-            L3 = uniao(L1, L2);
-            imprimeLista(L3);
-            break;
-        case 2:
-            L3 = diferenca(L1, L2);
-            imprimeLista(L3);
-            break;
-        case 3:
-            if(pertinencia(L1, L2) == 1){
-                printf("um conjunto esta contido no outro \n");
-            } else{
-                printf("um conjunto nao esta contido no outro \n");
-            }
-            break;
-        case 4:
-            L3 = intersecao(L1, L2);
-            imprimeLista(L3);
-            break;
-        case 5:
-            printf("Conjunto 1: \n");
-            imprimeLista(L1);
-            printf("=================================\n");
-            printf("Conjunto 2: \n");
-            imprimeLista(L2);
-            printf("=================================\n");
-            printf("Conjunto 3: \n");
-            imprimeLista(L3);
-            printf("=================================\n");
-            break;
-        case 6:
-            break;
-        default:
-            printf("Operacao invalida! \n");
-            break;
-    }
     return 0;
 }

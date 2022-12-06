@@ -9,7 +9,7 @@ void push(pilha *P, int num)
 {
     if (P->indiceTopo < MAX-1) 
     {
-        P->indiceTopo++;
+        P->indiceTopo++'''''''''''''';
         P->dado[P->indiceTopo] = num;
     }
     else

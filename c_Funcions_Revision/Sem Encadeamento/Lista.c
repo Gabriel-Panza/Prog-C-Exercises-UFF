@@ -90,7 +90,6 @@ void remover (lista *L, int elem)
         {
             L->dado[i] = L->dado[i+1];
         }
-        L->dado[pos+1] = -1;
         L->total -= 1;
     }
 }
