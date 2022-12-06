@@ -12,7 +12,7 @@ void insere(fila *f, int num)
     if (f->total<MAX)
     {
         f->dado[f->fim] = num;
-        f->fim++;
+        f->fim+=1;
         f->fim = f->fim%MAX; 
         f->total++;
     }
@@ -21,13 +21,14 @@ void insere(fila *f, int num)
         printf("fila ta cheia!");
     }
 }
+
 int remover(fila *f)
 {
     int num;
     if(f->total>0)
     {
         num = f->dado[f->inicio];
-        f->inicio++;
+        f->inicio+=1;
         f->inicio = f->inicio%MAX; 
         f->total--;
     }
@@ -42,6 +43,7 @@ void printa(fila *f)
     }
     printf("\n");
 }
+
 int main()
 {
     int num;

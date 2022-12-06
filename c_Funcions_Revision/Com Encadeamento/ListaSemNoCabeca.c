@@ -45,7 +45,7 @@ LSE *insereNoMeio(LSE *ant, LSE *L, int elem, int posicao)
     // Insiro no meio dos 2 ponteiros
     novo->prox = atual;
     ant->prox = novo;
-    return novo;
+    return ant;
 }
 LSE *insereNoFinal (LSE *L, int elem)
 {

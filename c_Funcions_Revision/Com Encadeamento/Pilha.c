@@ -38,6 +38,14 @@ void printa(PilhaEnc *p)
     printf("\n");
 }
 
+void libera(PilhaEnc *p)
+{
+    if (p->prox) // p->prox==NULL
+        libera(p->prox);
+    
+    free(p);
+}
+
 int main()
 {
     PilhaEnc *p = inicializa();

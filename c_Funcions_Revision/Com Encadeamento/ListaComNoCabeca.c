@@ -92,7 +92,7 @@ LSE* retira(LSE *l, int elem)
     if(!atual) // atual == NULL
         return l;
     // CASO 2: O elemento que quero remover eh o primeiro da lista
-    if(ant == l) // ant == NULL
+    if(ant == l) // ant == NO Cabeça
         l->prox = atual->prox;
     // CASO 3: Ta no meio/final
     else 

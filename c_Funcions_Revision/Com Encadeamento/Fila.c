@@ -28,9 +28,11 @@ FilaEnc* insere(FilaEnc *f, int num)
     while(aux->prox) // aux->prox != NULL
         aux = aux->prox;
 
+    // PReencho os dados do ultimo elemento
     FilaEnc *novo = (FilaEnc*) malloc(sizeof(FilaEnc));
     novo->dado = num;
     novo->prox = NULL;
+    // Faço com que o proximo do antigo ultimo receba o novo ultimo
     aux->prox = novo;
     return f;
 
