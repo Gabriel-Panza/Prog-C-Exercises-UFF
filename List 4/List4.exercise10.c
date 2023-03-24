@@ -1,23 +1,23 @@
 #include<stdio.h>
-void respOtim(int *vetor, int *prespOti){
+void greatAnwser(int *vector, int *pGreatAnwser){
     int i;
-    int rOtim = *prespOti;
-    for(i=0;i<20;i++){
-        if(vetor[i]==1){
+    int rOtim = *pGreatAnwser;
+    for(i=0;i<100;i++){
+        if(vector[i]==1){
             rOtim++;
         }
     }
-    *prespOti = rOtim;
+    *pGreatAnwser = rOtim;
 }
-void PercentBomReg(int *vetor, float *pdifPer){
+void PercentGoodReg(int *vector, float *pdifPer){
     int i;
     float cont_b=0, cont_reg=0,dif;
     dif=*pdifPer;
-    for (i=0;i<20;i++){
-        if(vetor[i]==2){
+    for (i=0;i<100;i++){
+        if(vector[i]==2){
             cont_b++;
         }
-        if(vetor[i]==3){
+        if(vector[i]==3){
             cont_reg++;
         }
     }
@@ -27,63 +27,63 @@ void PercentBomReg(int *vetor, float *pdifPer){
 	}
 	*pdifPer=dif;
 }
-void medRu(int *vetor, int *idadeV, float *pmedRuim){
-    float med;
-    int i, soma=0, cont=0;
-    med=*pmedRuim;
-    for(i=0;i<20;i++){
-        if(vetor[i]==4){
-            soma=soma+idadeV[i];
+void AverageBad(int *vector, int *ageV, float *pAverageBad){
+    float average;
+    int i, add=0, cont=0;
+    average=*pAverageBad;
+    for(i=0;i<100;i++){
+        if(vector[i]==4){
+            add=add+ageV[i];
             cont++;
         }
     }
-    med=soma/cont;
-    *pmedRuim=med;
+    average=add/cont;
+    *pAverageBad=average;
 }
-void PorcPessMaiorIda(int *vetor, int *idadeV, float *pporc, int *pmaiorIda){
-    int i, cont=0, maior=0;
+void PercWorstBiggerAge(int *vector, int *ageV, float *pperc, int *pBiggerAge){
+    int i, cont=0, bigger=0;
     float percent;
-    percent=*pporc;
-    maior=*pmaiorIda;
-    for(i=0;i<20;i++){
-        if(vetor[i]==5){
+    percent=*pperc;
+    bigger=*pBiggerAge;
+    for(i=0;i<100;i++){
+        if(vector[i]==5){
             cont++;
-            if(idadeV[i]>maior){
-                maior=idadeV[i];
+            if(ageV[i]>bigger){
+                bigger=ageV[i];
             }
         }
     }
-    printf("maior eh: %d", maior);
-    percent= (20*cont)/100;
-    *pporc = percent;
-    *pmaiorIda=maior;
+    printf("Higher is: %d", bigger);
+    percent= (100*cont)/100;
+    *pperc = percent;
+    *pBiggerAge=bigger;
 }
-void DifMaiorIdaOtimRuim (int *vetor, int *idadeV, int *difMaiorIda){
-    int i, maiorIdaOtim=0, maiorIdaRuim=0, difIda=0;
-    difIda = *difMaiorIda;
-    for(i=0;i<20;i++){
-        if(vetor[i]==1){
-            if (idadeV[i]> maiorIdaOtim){
-                maiorIdaOtim = idadeV[i];
+void DifBiggerAgeGreatBad (int *vector, int *ageV, int *difBiggerAge){
+    int i, biggerAgeGreat=0, biggerAgeBad=0, difAge=0;
+    difAge = *difBiggerAge;
+    for(i=0;i<100;i++){
+        if(vector[i]==1){
+            if (ageV[i]> biggerAgeGreat){
+                biggerAgeGreat = ageV[i];
             }
         }
-        if(vetor[i]==4){
-            if (idadeV[i]> maiorIdaRuim){
-                maiorIdaRuim = idadeV[i];
+        if(vector[i]==4){
+            if (ageV[i]> biggerAgeBad){
+                biggerAgeBad = ageV[i];
             }
         }
     }
-    difIda = maiorIdaOtim - maiorIdaRuim;
-    if (difIda < 0){
-        difIda *= -1;
+    difAge = biggerAgeGreat - biggerAgeBad;
+    if (difAge < 0){
+        difAge *= -1;
     }
-    *difMaiorIda = difIda;
+    *difBiggerAge = difAge;
 }
 int main(){
-    int i, op,respOti=0, maiorIda=0, difMaiorIdaOtimaRuim = 0;
+    int i, op,greatAnwser=0, biggerAge=0, difBiggerAgeGreatBad = 0;
     int v[100];
 	int age[100];
-    float difPer, medRuim, porc;
+    float difPer, averageBad, perc;
 
     for(i=0; i<100;i++){
         printf("Type your age: ");
@@ -112,20 +112,20 @@ int main(){
     for(i=0;i<100;i++){
         printf("vector[%d] age: %d \nvector[%d] opiniao: %d",i,age[i],i,v[i]);
     }
-    respOtim(v,&respOti);
-    PercentBomReg(v, &difPer);
-    medRu(v,age,&medRuim);
-    PorcPessMaiorIda(v, age, &porc, &maiorIda);
-    DifMaiorIdaOtimRuim(v, age, &difMaiorIdaOtimaRuim);
+    greatAnwser(v,&greatAnwser);
+    PercentGoodReg(v, &difPer);
+    AverageBad(v,age,&averageBad);
+    PercWorstBiggerAge(v, age, &perc, &biggerAge);
+    DifBiggerAgeGreatBad(v, age, &difBiggerAgeGreatBad);
     //A
-    printf("\nA) The quantity of great opinions are: %d", respOti);
+    printf("\nA) The quantity of great opinions are: %d", greatAnwser);
     //B
     printf("\nB) The percentual difference between the good and regular opinions is: %.2f", difPer);
     //C
-    printf("\nC) The average age of the people that choose worst is: %.2f", medRuim);
+    printf("\nC) The average age of the people that choose worst is: %.2f", averageBad);
     //D
-    printf("\nD) The percentual of worst anwsers is: %.2f \n Higher age that choose this option: %d" ,porc, maiorIda);
+    printf("\nD) The percentual of worst anwsers is: %.2f \n Higher age that choose this option: %d" ,perc, biggerAge);
     //E
-    printf("\nE) The age difference between the oldest that vote great and bad is: %d", difMaiorIdaOtimaRuim);
+    printf("\nE) The age difference between the oldest that vote great and bad is: %d", difBiggerAgeGreatBad);
     return 0;
 }
