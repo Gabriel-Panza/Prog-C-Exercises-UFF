@@ -3,7 +3,7 @@
 #include<string.h>
 #include<stdbool.h>
 
-void binario(int n)
+void binary(int n)
 {
     int *bin = (int*) malloc(32 * sizeof(int));
     int aux, cont=0;
@@ -34,13 +34,12 @@ void main()
 
     do
     {
-        printf("\nDigite um número: ");
-        printf("\nn: ");
+        printf("\nType a number: ");
         scanf("%d", &n);
         if (n<0)
             break;
         
-        binario(n);
+        binary(n);
     } while (1);
     
 }

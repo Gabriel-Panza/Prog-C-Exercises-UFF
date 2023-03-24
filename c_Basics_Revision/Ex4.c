@@ -5,7 +5,7 @@ void main()
     int F1, F2, cont=1, mmc;
     do
     {
-        printf("\nDigite quantas figurinhas Ricardo e Vicente possuem (separados por espacos em branco) ");
+        printf("\nType how many figures Ricardo e Vicente have (separated by blank spaces): ");
         scanf("%d %d", &F1, &F2);
         if (F1<1 || F2<1)
         {

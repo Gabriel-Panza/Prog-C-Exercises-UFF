@@ -5,7 +5,7 @@ void main()
     int n, cont;
     do
     {
-        printf("\nDigite quantos numeros primos depois do numero desejado, voce deseja ver: ");
+        printf("\nType how many prime numbers do you want to see, after the given number: ");
         scanf("%d", &n);
         if (n<=0)
             break;

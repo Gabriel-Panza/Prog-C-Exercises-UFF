@@ -1,23 +1,23 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-void calcula_integral(int* p, int* it, int tamPol)
+void calc_integral(int* p, int* it, int tamPol)
 {
     for (int i=0;i<tamPol;i++)
     {
         it[i] = p[i]/(i+1);
     }
 }
-void calcula_derivada(int* p, int* dv, int tamPol)
+void calc_derivative(int* p, int* dv, int tamPol)
 {
     for (int i=0;i<tamPol;i++)
     {
         dv[i] = p[i]*i;
     }
 }
-void printa_integral(int* it, int tamIt)
+void print_integral(int* it, int tamIt)
 {
-    printf("\nOs coeficientes da integral do polinomio sao: ");
+    printf("\nThe coefficient of the integral of the polynomial are: ");
     for (int i=0;i<tamIt;i++)
     {
         if (i==0)
@@ -26,9 +26,9 @@ void printa_integral(int* it, int tamIt)
             printf("%d ", it[i-1]);
     }
 }
-void printa_derivada(int* dv, int tamDv)
+void print_derivative(int* dv, int tamDv)
 {
-    printf("\nOs coeficientes da derivada do polinomio sao: ");
+    printf("\nThe coefficient of the derivative of the polynomial are: ");
     for (int i=1;i<tamDv+1;i++)
     {
         printf("%d ", dv[i]);
@@ -39,7 +39,7 @@ void main()
     int i, grau, tamPol, tamIt, tamDv;
     do
     {
-        printf("\nDiga o grau do polinomio: ");
+        printf("\nType the degree of the polynomial: ");
         scanf("%d", &grau);
         if (grau<=0)
             break;
@@ -62,19 +62,19 @@ void main()
         
         for (i=0;i<grau+1;i++)
         {
-            printf("\nDigite o coeficiente de grau %d do polinomio: ", i);
+            printf("\nType the coefficient degree %d of the polynomial: ", i);
             scanf("%d", &p[i]);
         }
 
         /* Letra a */
-        printf("O coeficiente de maior grau do polinomio eh o: %d", p[grau]);
+        printf("The coefficient of higher degree of the polynomial is %d", p[grau]);
 
         /* Letra b */
-        calcula_integral(p, it, tamPol);
-        calcula_derivada(p, dv, tamPol);
+        calc_integral(p, it, tamPol);
+        calc_derivative(p, dv, tamPol);
 
         /* Letra c */
-        printa_integral(it, tamIt);
-        printa_derivada(dv, tamDv);
+        print_integral(it, tamIt);
+        print_derivative(dv, tamDv);
     } while (1);
 }

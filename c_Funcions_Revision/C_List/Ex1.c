@@ -1,6 +1,6 @@
 #include<stdio.h>
 
-void primos(int n, int i)
+void primes(int n, int i)
 {
     for(i=2;i<=n;i++)
     {
@@ -19,7 +19,7 @@ void main()
 {
     int n, i;
 
-    printf("\nDigite o numero limite: ");
+    printf("\nType de number limit: ");
     scanf("%d", &n);
 
     primos(n,i);
