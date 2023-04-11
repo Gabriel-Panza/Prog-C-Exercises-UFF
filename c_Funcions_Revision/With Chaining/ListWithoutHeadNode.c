@@ -1,10 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-typedef struct NO 
+typedef struct NODE 
 {
     int data;
-    struct NO *next;
+    struct NODE *next;
 }CL;
 
 CL *initialize()
@@ -12,14 +12,14 @@ CL *initialize()
     return NULL;
 }
 
-CL *pushStart (CL *L, int elem)
+CL *pushStart(CL *L, int elem)
 {
     CL *new = (CL*) malloc(sizeof(CL));
     new->data = elem;
     new->next = L;
     return new;
 }
-CL *pushMiddle(CL *old, CL *L, int elem, int position)
+CL *pushMiddle(CL *old, CL *L, int elem, int position) // Only works with valid positions
 {
     // CASE 1: empty/null List
     if(!L || position == 0) // L == NULL
@@ -47,24 +47,52 @@ CL *pushMiddle(CL *old, CL *L, int elem, int position)
     old->next = new;
     return old;
 }
-CL *pushEnd (CL *L, int elem)
+CL *pushEnd(CL *L, int elem)
 {
+    CL *new = pushStart(NULL,elem);
     // CASE 1: empty/null List
     if(!L) // L == NULL
-    {
-        L = pushStart(L, elem);
-        return L;
-    }
+        return new;
 
     // CASE 2: not empty/null List
     CL *LSE_aux = L;
-    while(LSE_aux->next) // while LSE_aux->next != NULL)
+    while(LSE_aux->next) // while (LSE_aux->next != NULL)
         LSE_aux = LSE_aux->next;
     
-    CL *new = (CL*) malloc(sizeof(CL));
-    new->data = elem;
-    new->next = NULL;
     LSE_aux->next = new;
+    return L;
+}
+CL *pushEnd_rec(CL *L, int elem)
+{
+    if (!L)
+        return pushStart(L,elem);
+    L->next = pushEnd_rec(L->next,elem);
+    return L;
+}
+CL *pushSorted(CL *L, int elem) // Only works with sorted lists
+{
+    CL *LSE_aux_old = NULL;
+    CL *LSE_aux = L;
+    while(LSE_aux && LSE_aux->data < elem) // while (LSE_aux != NULL and LSE_aux->info < elem)
+    {
+        LSE_aux_old = LSE_aux;
+        LSE_aux = LSE_aux->next;
+    }
+
+    // CASE 1: empty/null List
+    if (LSE_aux_old==NULL)
+        return pushStart(NULL,elem);
+    // CASE 2: not empty/null List
+
+    LSE_aux_old->next = pushStart(LSE_aux,elem);
+    return L;
+    
+}
+CL *pushSorted_rec(CL *L, int elem) // Only works with sorted lists
+{
+    if((!L) || (L->data >= elem))
+        return pushStart(L,elem);
+    L->next = pushSorted_rec(L->next,elem);
     return L;
 }
 
@@ -84,12 +112,12 @@ CL* search_rec(CL *l, int elem)
 
 CL* pop(CL *l, int elem)
 {
-    CL *atual = l;
+    CL *actual = l;
     CL *old = NULL;
-    while((atual) && (atual->data != elem))
+    while((actual) && (actual->data != elem))
     {
-        old = atual;
-        atual = atual->next;
+        old = actual;
+        actual = actual->next;
     }
     // CASE 1: I didnt find the element
     if(!actual) // actual == NULL
@@ -116,41 +144,96 @@ CL* pop_rec(CL *l, int elem)
     return l;
 }
 
+void freeAll(CL *L)
+{
+    CL *aux = L;
+    CL *temp;
+    while(aux!=NULL)
+    {
+        temp = aux;
+        aux=aux->next;
+        free(temp);
+    }
+}
+void freeAll_rec(CL *L)
+{
+    if(L)
+    {
+        freeAll(L->next);
+        free(L);
+    }
+}
+
 void print(CL *L)
 {
-    CL *LE_aux = L;
-    while(LE_aux)
+    CL *aux = L;
+    while(aux)
     {
-        printf("[%d]->", LE_aux->data);
-        LE_aux = LE_aux->next; 
+        printf("[%d]->", aux->data);
+        aux = aux->next; 
     }
     printf("\n");
+}
+void print_rec(CL *L)
+{
+    if(L)
+    {
+        printf("[%d]->", L->data);
+        print_rec(L->next);
+    }
+    printf("\n");
+}
+void print_inv(CL *L)
+{
+    CL *aux = L;
+    CL *L_aux = initialize();
+    while(aux)
+    {
+        L_aux = pushStart(L_aux, aux->data);
+        aux = aux->next;
+    }
+    print(L_aux);
+    freeAll(L_aux);
+}
+void print_inv_rec(CL *L)
+{
+    if (L->next)
+        print_inv_rec(L->next);
+    printf("<-[%d]", L->data);
 }
 
 int main()
 {
     CL *L = initialize();
     int size, elem;
-    printf("Type what is the size of the list: ")
+    printf("Type what is the size of the list: ");
     scanf("%d", &size);
     
     for (int i=0;i<size;i++)
     {
-        printf("Type what element do you want to add: ")
+        printf("Type what element do you want to add: ");
         scanf("%d", &elem);
         L = pushEnd (L, elem);
     }
 
     L = pushMiddle(NULL, L, 2, 2);
     print(L);
-    
-    L = pop(L,4);
-    print(L);
+    print_inv(L);
 
-    CL *noDeBusca = search_rec(L, 5);
+    printf("\n\n");
+
+    L = pop(L,0);
+    print(L);
+    print_inv(L);
+    
+    CL *noDeBusca = search_rec(L, 4);
     if (noDeBusca)
-        printf("Node found! Node: %d", noDeBusca->data);
+        printf("\nNode found! Node: %d", noDeBusca->data);
     else
-        printf("Node not found!");
+        printf("\nNode not found!");
+    
+    freeAll(L);
+    freeAll(noDeBusca);
+
     return 0;
 }

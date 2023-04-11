@@ -1,10 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-typedef struct NO 
+typedef struct NODE 
 {
     int data;
-    struct NO *next;
+    struct NODE *next;
 }CL;
 
 CL *initialize()
@@ -104,12 +104,12 @@ int main()
 {
     CL *L = initialize();
     int size, elem;
-    printf("Type the size of the list: ")
+    printf("Type the size of the list: ");
     scanf("%d", &size);
     
     for (int i=0;i<size;i++)
     {
-        printf("Type what element do you want to add: ")
+        printf("Type what element do you want to add: ");
         scanf("%d", &elem);
         L = pushEnd (L, elem);
     }
@@ -117,17 +117,17 @@ int main()
     L = pushMiddle(NULL, L, 2, 2);
     print(L);
     
-    printf("Type what element do you want to remove: ")
+    printf("Type what element do you want to remove: ");
     scanf("%d", &elem);
     L = pop(L,elem);
     print(L);
 
-    printf("Type what element do you want to search: ")
+    printf("Type what element do you want to search: ");
     scanf("%d", &elem);
     CL *noDeBusca = search(L, elem);
     if (noDeBusca)
-        printf("Found Node! Node: %d", noDeBusca->data);
+        printf("\nFound Node! Node: %d", noDeBusca->data);
     else
-        printf("Node not found!");
+        printf("\nNode not found!");
     return 0;
 }

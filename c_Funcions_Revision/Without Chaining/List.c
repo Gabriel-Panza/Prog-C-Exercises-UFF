@@ -130,7 +130,7 @@ int main()
 
     for (int i=0;i<size;i++)
     {
-        scanf("%d", &elem)
+        scanf("%d", &elem);
         push (&L, elem, size);
     }
 
