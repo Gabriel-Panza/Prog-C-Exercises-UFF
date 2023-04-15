@@ -10,7 +10,6 @@ void inverte (TLSE* l){
         l_aux = l_aux->next;
     }
     *l = *l_inv;
-    freeAll_rec(l_aux);
 }
 
 int main(){
