@@ -3,7 +3,14 @@
 #include "TLSE.c"
 
 TLSE* copia (TLSE* l){
-    
+    if (!l)
+        return l;
+    TLSE *copia = initialize(), *aux=l;
+    while (aux){
+        copia = pushEnd(copia, aux->info);
+        aux=aux->prox;
+    }
+    return copia;
 }
 
 int main(){
