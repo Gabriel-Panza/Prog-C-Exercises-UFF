@@ -7,7 +7,7 @@ void inverte (TLSE* l){
     TLSE *l_aux = l;
     while (l_aux){
         l_inv = pushStart(l_inv, l_aux->info);
-        l_aux = l_aux->prox;
+        l_aux = l_aux->next;
     }
     *l = *l_inv;
     freeAll_rec(l_aux);

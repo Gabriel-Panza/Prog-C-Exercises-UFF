@@ -2,31 +2,31 @@
 #include <stdlib.h>
 #include "TLSE.c"
 
-TLSE* desloca (TLSE* l, int n){
+TLSE* rotate (TLSE* l, int n){
     if (l == NULL || n == 0) 
         return l;
 
     if (n % 2 == 0) { // even
-        TLSE* ultimo = l;
-        while (ultimo->prox != NULL) {
-            ultimo = ultimo->prox;
+        TLSE* last = l;
+        while (last->next != NULL) {
+            last = last->next;
         }
 
-        ultimo->prox = l;
-        l = l->prox;
-        ultimo->prox->prox = NULL;
+        last->next = l;
+        l = l->next;
+        last->next->next = NULL;
 
         return l;
     } // odd
-    TLSE* primeiro = l;
-    TLSE* penultimo = l;
-    while (penultimo->prox->prox != NULL) {
-        penultimo = penultimo->prox;
+    TLSE* first = l;
+    TLSE* before_last = l;
+    while (before_last->next->next != NULL) {
+        before_last = before_last->next;
     }
 
-    TLSE *temp = penultimo->prox;
-    penultimo->prox = NULL;
-    temp->prox = primeiro;
+    TLSE *temp = before_last->next;
+    before_last->next = NULL;
+    temp->next = first;
 
     return temp;
 }
@@ -40,8 +40,8 @@ int main(){
     l = pushStart(l, 5);
     print_rec(l);
 
-    l = desloca(l,2);
+    l = rotate(l,2);
     print_rec(l);
-    l = desloca(l,1);
+    l = rotate(l,1);
     print_rec(l);
 }

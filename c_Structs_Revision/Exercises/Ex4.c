@@ -2,15 +2,15 @@
 #include <stdlib.h>
 #include "TLSE.c"
 
-TLSE* copia (TLSE* l){
+TLSE* copy (TLSE* l){
     if (!l)
         return l;
-    TLSE *copia = initialize(), *aux=l;
+    TLSE *copy = initialize(), *aux=l;
     while (aux){
-        copia = pushEnd(copia, aux->info);
-        aux=aux->prox;
+        copy = pushEnd(copy, aux->info);
+        aux=aux->next;
     }
-    return copia;
+    return copy;
 }
 
 int main(){
@@ -22,6 +22,6 @@ int main(){
     l = pushStart(l, 5);
     print_rec(l);
 
-    TLSE *l2 = copia(l);
+    TLSE *l2 = copy(l);
     print_rec(l2);
 }

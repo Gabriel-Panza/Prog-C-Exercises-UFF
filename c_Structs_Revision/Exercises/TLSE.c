@@ -4,7 +4,7 @@
 typedef struct list 
 {
     int info;
-    struct list *prox;
+    struct list *next;
 }TLSE;
 
 TLSE *initialize()
@@ -16,7 +16,7 @@ TLSE *pushStart(TLSE *L, int elem)
 {
     TLSE *new = (TLSE*) malloc(sizeof(TLSE));
     new->info = elem;
-    new->prox = L;
+    new->next = L;
     return new;
 }
 TLSE *pushMiddle(TLSE *old, TLSE *L, int elem, int position) // Only works with valid positions
@@ -32,19 +32,19 @@ TLSE *pushMiddle(TLSE *old, TLSE *L, int elem, int position) // Only works with 
     TLSE* atual = L;
     if (position>1)
     {
-        L->prox = pushMiddle(L, L->prox, elem, position-1);
+        L->next = pushMiddle(L, L->next, elem, position-1);
         return L;
     }
     old = atual;
-    atual = atual->prox;
+    atual = atual->next;
 
     // Create a new node with the info
     TLSE *new = (TLSE*) malloc(sizeof(TLSE));
     new->info = elem;
 
     // Add in the middle of 2 nodes
-    new->prox = atual;
-    old->prox = new;
+    new->next = atual;
+    old->next = new;
     return old;
 }
 TLSE *pushEnd(TLSE *L, int elem)
@@ -56,17 +56,17 @@ TLSE *pushEnd(TLSE *L, int elem)
 
     // CASE 2: not empty/null List
     TLSE *LSE_aux = L;
-    while(LSE_aux->prox) // while (LSE_aux->next != NULL)
-        LSE_aux = LSE_aux->prox;
+    while(LSE_aux->next) // while (LSE_aux->next != NULL)
+        LSE_aux = LSE_aux->next;
     
-    LSE_aux->prox = new;
+    LSE_aux->next = new;
     return L;
 }
 TLSE *pushEnd_rec(TLSE *L, int elem)
 {
     if (!L)
         return pushStart(L,elem);
-    L->prox = pushEnd_rec(L->prox,elem);
+    L->next = pushEnd_rec(L->next,elem);
     return L;
 }
 TLSE *pushSorted(TLSE *L, int elem) // Only works with sorted lists
@@ -76,14 +76,14 @@ TLSE *pushSorted(TLSE *L, int elem) // Only works with sorted lists
     while(aux_actual && aux_actual->info < elem)
     {
         aux_old = aux_actual;
-        aux_actual = aux_actual->prox;
+        aux_actual = aux_actual->next;
     }
 
     // CASE 1: empty/null List
     if (aux_old==NULL)
         return pushStart(NULL,elem);
     // CASE 2: not empty/null List
-    aux_old->prox = pushStart(aux_actual,elem);
+    aux_old->next = pushStart(aux_actual,elem);
     return L;
     
 }
@@ -91,7 +91,7 @@ TLSE *pushSorted_rec(TLSE *L, int elem) // Only works with sorted lists
 {
     if((!L) || (L->info >= elem))
         return pushStart(L,elem);
-    L->prox = pushSorted_rec(L->prox,elem);
+    L->next = pushSorted_rec(L->next,elem);
     return L;
 }
 
@@ -99,14 +99,14 @@ TLSE* search(TLSE *l, int elem)
 {
     TLSE *aux = l;
     while((aux) && (aux->info != elem)) // while aux != NULL and ...
-        aux = aux->prox;
+        aux = aux->next;
     return aux;
 }
 TLSE* search_rec(TLSE *l, int elem)
 {
     if((!l) || (l->info == elem)) // while l == NULL or l == node wanted, return
         return l;
-    return search_rec(l->prox, elem);
+    return search_rec(l->next, elem);
 }
 
 TLSE* pop(TLSE *l, int elem)
@@ -116,18 +116,18 @@ TLSE* pop(TLSE *l, int elem)
     while((actual) && (actual->info != elem))
     {
         old = actual;
-        actual = actual->prox;
+        actual = actual->next;
     }
     // CASE 1: I didnt find the element
     if(!actual) // actual == NULL
         return l;
     // CASE 2: Its the first of the list
     if(!old) // old == NULL
-        l = l->prox;
+        l = l->next;
     // CASE 3: Its in the middle/final
     else {
         TLSE* lixo = actual;
-        old->prox = actual->prox;
+        old->next = actual->next;
         free(lixo);
     }
     return l;
@@ -139,10 +139,10 @@ TLSE* pop_rec(TLSE *l, int elem)
         return l;
     // CASE 2
     if(l->info == elem)
-        l = l->prox;
+        l = l->next;
     // CASE 3
     else 
-        l->prox = pop_rec(l->prox, elem);
+        l->next = pop_rec(l->next, elem);
     return l;
 }
 
@@ -153,7 +153,7 @@ void freeAll(TLSE *L)
     while(aux!=NULL)
     {
         temp = aux;
-        aux=aux->prox;
+        aux=aux->next;
         free(temp);
     }
 }
@@ -161,7 +161,7 @@ void freeAll_rec(TLSE *L)
 {
     if(L)
     {
-        freeAll_rec(L->prox);
+        freeAll_rec(L->next);
         free(L);
     }
 }
@@ -172,7 +172,7 @@ void print(TLSE *L)
     while(aux)
     {
         printf("[%d]->", aux->info);
-        aux = aux->prox; 
+        aux = aux->next; 
     }
     printf("\n");
 }
@@ -181,7 +181,7 @@ void print_rec(TLSE *L)
     if(L)
     {
         printf("[%d]->", L->info);
-        print_rec(L->prox);
+        print_rec(L->next);
     }
     else
         printf("\n");
@@ -193,14 +193,14 @@ void print_inv(TLSE *L)
     while(aux)
     {
         L_aux = pushStart(L_aux, aux->info);
-        aux = aux->prox;
+        aux = aux->next;
     }
     print(L_aux);
     freeAll(L_aux);
 }
 void print_inv_rec(TLSE *L)
 {
-    if (L->prox)
-        print_inv_rec(L->prox);
+    if (L->next)
+        print_inv_rec(L->next);
     printf("[%d]->", L->info);
 }
