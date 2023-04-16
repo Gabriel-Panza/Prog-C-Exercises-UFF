@@ -11,7 +11,6 @@ TLSE* rotate (TLSE* l, int n){
         while (last->next != NULL) {
             last = last->next;
         }
-
         last->next = l;
         l = l->next;
         last->next->next = NULL;

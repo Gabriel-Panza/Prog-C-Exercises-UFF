@@ -121,14 +121,16 @@ TLSE* pop(TLSE *l, int elem)
     if(!actual) // actual == NULL
         return l;
     // CASE 2: Its the first of the list
-    if(!old) // old == NULL
+    if(!old){
+        old = l;
         l = l->next;
-    // CASE 3: Its in the middle/final
-    else {
-        TLSE* lixo = actual;
-        old->next = actual->next;
-        free(lixo);
+        free(old);
+        return l;
     }
+    // CASE 3: Its in the middle/final
+    TLSE* lixo = actual;
+    old->next = actual->next;
+    free(lixo);
     return l;
 }
 TLSE* pop_rec(TLSE *l, int elem)
@@ -147,9 +149,8 @@ TLSE* pop_rec(TLSE *l, int elem)
 
 void freeAll(TLSE *L)
 {
-    TLSE *aux = L;
-    TLSE *temp;
-    while(aux!=NULL)
+    TLSE *aux = L, *temp;
+    while(aux)
     {
         temp = aux;
         aux=aux->next;
