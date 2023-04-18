@@ -5,31 +5,31 @@ typedef struct CHAINING_QUEUE
 {
     int data;
     struct CHAINING_QUEUE *next;
-}QueueChain;
+}QC;
 
-QueueChain* initialize()
+QC* initialize()
 {
     return NULL;
 }
 
-QueueChain* push(QueueChain *f, int num)
+QC* push(QC *f, int num)
 {
     // CASE 1: empty/null Queue
     if (!f) // f==NULL
     {
-        QueueChain *new = (QueueChain*) malloc(sizeof(QueueChain));
+        QC *new = (QC*) malloc(sizeof(QC));
         new->data = num;
         new->next = NULL;
         return new;
     }
 
     // CASE 2: not empty/null Queue
-    QueueChain *aux = f;
+    QC *aux = f;
     while(aux->next) // aux->next != NULL
         aux = aux->next;
 
     // Add all the info into the last element
-    QueueChain *new = (QueueChain*) malloc(sizeof(QueueChain));
+    QC *new = (QC*) malloc(sizeof(QC));
     new->data = num;
     new->next = NULL;
     // The old last element point to the new last element
@@ -38,16 +38,16 @@ QueueChain* push(QueueChain *f, int num)
 
 }
 
-QueueChain* pop(QueueChain *f)
+QC* pop(QC *f)
 {
     if (!f) // f==NULL
         return f;
     return f->next;
 }
 
-void print(QueueChain *f)
+void print(QC *f)
 {
-    QueueChain *aux = f;
+    QC *aux = f;
     while(aux) // aux != NULL 
     {
         printf("[%d]->", aux->data);
@@ -58,7 +58,7 @@ void print(QueueChain *f)
 
 int main()
 {
-    QueueChain *f = initialize();
+    QC *f = initialize();
 
     f = push(f, 1);
     f = push(f, 2);

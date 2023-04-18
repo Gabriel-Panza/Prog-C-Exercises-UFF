@@ -9,7 +9,6 @@ TLSE* inverte (TLSE* l){
         l_inv = pushStart(l_inv, l_aux->info);
         l_aux = l_aux->next;
     }
-    freeAll_rec(l_aux);
     return l_inv;
 }
 

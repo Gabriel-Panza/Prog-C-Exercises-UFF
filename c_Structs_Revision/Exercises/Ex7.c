@@ -16,7 +16,13 @@ void i_p (TLSE *l){
         odd = pushEnd(odd, even->info);
         even = even->next;
     }
-    *l = *odd;
+    aux = odd;
+    while(aux){
+        l->info = aux->info;
+        aux = aux->next;
+        l = l->next;
+    }
+    freeAll_rec(odd);
 }
 
 int main(){

@@ -8,7 +8,13 @@ void ordena (TLSE* l){
         sorted_l = pushSorted_rec(sorted_l,aux->info);
         aux = aux->next;
     }
-    *l = *sorted_l;
+    aux = sorted_l;
+    while(aux){
+        l->info = aux->info;
+        aux = aux->next;
+        l = l->next;
+    }
+    freeAll_rec(sorted_l);
 }
 
 int main(){

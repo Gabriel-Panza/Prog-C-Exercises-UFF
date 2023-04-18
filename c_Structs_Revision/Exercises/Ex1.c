@@ -9,7 +9,13 @@ void inverte (TLSE* l){
         l_inv = pushStart(l_inv, l_aux->info);
         l_aux = l_aux->next;
     }
-    *l = *l_inv;
+    l_aux = l_inv;
+    while(l_aux){
+        l->info = l_aux->info;
+        l_aux = l_aux->next;
+        l = l->next;
+    }
+    freeAll_rec(l_inv);
 }
 
 int main(){

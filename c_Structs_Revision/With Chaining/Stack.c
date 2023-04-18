@@ -5,31 +5,31 @@ typedef struct STACK_CHAINING
 {
     int data;
     struct STACK_CHAINING *next;
-}StackChain;
+}SC;
 
-StackChain* initialize()
+SC* initialize()
 {
     return NULL;
 }
 
-StackChain* push(StackChain *p, int num)
+SC* push(SC *p, int num)
 {
-    StackChain *novo = (StackChain*) malloc(sizeof(StackChain));
+    SC *novo = (SC*) malloc(sizeof(SC));
     novo->data = num;
     novo->next = p;
     return novo;
 }
  
-StackChain* pop(StackChain *p)
+SC* pop(SC *p)
 {
     if (!p) // p==NULL
         return p;
     return p->next;
 }
 
-void print(StackChain *p)
+void print(SC *p)
 {
-    StackChain *aux = p;
+    SC *aux = p;
     while(aux) // aux != NULL
     {
         printf("[%d]->", aux->data);
@@ -38,7 +38,7 @@ void print(StackChain *p)
     printf("\n");
 }
 
-void freeAll(StackChain *p)
+void freeAll(SC *p)
 {
     if (p->next) // p->next==NULL
         freeAll(p->next);
@@ -48,7 +48,7 @@ void freeAll(StackChain *p)
 
 int main()
 {
-    StackChain *p = initialize();
+    SC *p = initialize();
 
     p = push(p, 1);
     p = push(p, 2);
