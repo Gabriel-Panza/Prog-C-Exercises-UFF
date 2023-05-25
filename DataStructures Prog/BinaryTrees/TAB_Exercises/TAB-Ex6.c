@@ -10,7 +10,7 @@ TAB *retira_pares(TAB *arv){
   if(arv->info % 2 == 0){
     if(!arv->esq && !arv->dir){ /*caso 1: o nó é uma folha*/
       free(arv);     
-      arv = NULL;
+      arv = TAB_inicializa();
     } else if (!arv->esq || !arv->dir){ /*caso 2: o nó so tem 1 filho*/
       TAB *aux = arv;
       if(!arv->esq) arv = arv->dir;
