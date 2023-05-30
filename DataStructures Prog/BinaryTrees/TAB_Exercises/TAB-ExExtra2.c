@@ -26,10 +26,10 @@ int suc(TAB*a, int elem){
     return resp;
 }
 
-TLSEINT* ancestrais_aux(TAB *arv, TAB *a, int elem){
+TLSEINT* ancestrais_aux(TAB *arv_inicio, TAB *a, int elem){
     if (!a || a->info == elem || !TAB_busca(a,elem)) return NULL;
-    if (TAB_busca(a->esq, elem)) return TLSEINT_insere(ancestrais_aux(arv, a->esq, elem), pred(arv, a->info),suc(arv, a->info));
-    return TLSEINT_insere(ancestrais_aux(arv, a->dir, elem), pred(arv, a->info),suc(arv, a->info));
+    if (TAB_busca(a->esq, elem)) return TLSEINT_insere_ini(ancestrais_aux(arv_inicio, a->esq, elem), pred(arv_inicio, a->info),suc(arv_inicio, a->info));
+    return TLSEINT_insere_ini(ancestrais_aux(arv_inicio, a->dir, elem), pred(arv_inicio, a->info),suc(arv_inicio, a->info));
 }
 
 TLSEINT* ancestrais(TAB *a, int elem){

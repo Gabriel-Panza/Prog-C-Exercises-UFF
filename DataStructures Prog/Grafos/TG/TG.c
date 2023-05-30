@@ -74,14 +74,14 @@ TVIZ* TG_busca_aresta(TG *g, int no1, int no2){
   return resp;
 }
 
-TG* TG_ins_no(TG *g, int x){
+TG* TG_ins_no(TG *g, int x, int cor){
   TG *p = TG_busca_no(g, x);
   if(!p){
     p = (TG*) malloc(sizeof(TG));
     p->id_no = x;
     p->prox_no = g;
     p->prim_viz = NULL;
-    p->cor = x;
+    p->cor = cor;
     g = p;
   }
   return g;

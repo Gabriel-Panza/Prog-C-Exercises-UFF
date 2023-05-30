@@ -22,7 +22,7 @@ int main(){
     TG *g = TG_inicializa();
     for (int i=0;i<10;i++)
     {
-        g=TG_ins_no(g,i);
+        g=TG_ins_no(g,i,i);
         if (i>0)
             TG_ins_um_sentido(g,i-1,i);    
     }

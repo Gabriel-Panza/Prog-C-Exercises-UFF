@@ -7,7 +7,7 @@ typedef struct listINT
     struct listINT *next;
 }TLSEINT;
 
-TLSEINT *TLSEINT_insere(TLSEINT *L, int elem1, int elem2)
+TLSEINT *TLSEINT_insere_ini(TLSEINT *L, int elem1, int elem2)
 {
     TLSEINT *new = (TLSEINT*) malloc(sizeof(TLSEINT));
     new->lim_inferior = elem1;

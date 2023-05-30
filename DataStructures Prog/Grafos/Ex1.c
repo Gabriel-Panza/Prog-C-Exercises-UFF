@@ -14,7 +14,7 @@ int main()
     TG *g = TG_inicializa();
     for (int i=0;i<10;i++)
     {
-        g = TG_ins_no(g,i);
+        g = TG_ins_no(g,i,i);
     }
     
     int qntd = nn(g);

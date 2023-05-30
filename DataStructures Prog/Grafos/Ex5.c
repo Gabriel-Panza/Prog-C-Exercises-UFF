@@ -27,13 +27,13 @@ int main()
     TG *g1 = TG_inicializa(), *g2 = TG_inicializa();
     for (int i=0;i<10;i++)
     {
-        g1 = TG_ins_no(g1,i);
+        g1 = TG_ins_no(g1,i,i);
         if (i>0)
             TG_ins_aresta(g1,i-1,i);    
     }
     for (int i=0;i<10;i++)
     {
-        g2 = TG_ins_no(g2,i);
+        g2 = TG_ins_no(g2,i,i);
         if (i>0)
             TG_ins_aresta(g2,i-1,i);    
     }
