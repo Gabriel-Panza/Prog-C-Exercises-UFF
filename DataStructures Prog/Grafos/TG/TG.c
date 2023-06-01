@@ -93,7 +93,6 @@ void TG_ins_um_sentido(TG *g, int no1, int no2){
   TVIZ *nova = (TVIZ *) malloc(sizeof(TVIZ));
   nova->id_viz = no2;
   nova->prox_viz = p->prim_viz;
-  nova->cor = TG_busca_no(g, no2)->cor;
   p->prim_viz = nova;
 }
 
