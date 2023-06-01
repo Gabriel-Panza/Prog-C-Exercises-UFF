@@ -1,13 +1,12 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "TAB/TAB.c"
 
-TAB *retira_pares(TAB *arv){
+TAB *retira_x(TAB *arv, int x){
   if(!arv)
     return arv;
-  arv->esq = retira_pares(arv->esq);
-  arv->dir = retira_pares(arv->dir);
-  if(arv->info % 2 == 0){
+  arv->esq = retira_x(arv->esq,x);
+  arv->dir = retira_x(arv->dir,x);
+  if(arv->info == x){
     if(!arv->esq && !arv->dir){ /*caso 1: o nó é uma folha*/
       TAB_libera(arv);     
       arv = TAB_inicializa();
@@ -23,7 +22,7 @@ TAB *retira_pares(TAB *arv){
       int temp = arv->info;
       arv->info = aux->info;
       aux->info = temp;
-      arv = retira_pares(arv);
+      arv = retira_x(arv, x);
     }
   }
   return arv;
@@ -31,19 +30,19 @@ TAB *retira_pares(TAB *arv){
 
 int main()
 {
-    TAB *a, *semPar;
+    TAB *a, *semX;
 
-    int x1 = 10, x2=4, x3=16, x4=5, x5=15;
-    a = TAB_cria(x1,TAB_cria(x2,NULL,TAB_cria(x4,NULL,NULL)),TAB_cria(x3,TAB_cria(x5,NULL,NULL),NULL));
+    int x1 = 10, x2=4, x3=16, x4=5, x5=15, x6=5, x7=5;
+    a = TAB_cria(x1,TAB_cria(x2,NULL,TAB_cria(x4,NULL,TAB_cria(x6,NULL,NULL))),TAB_cria(x3,TAB_cria(x5,NULL,NULL),TAB_cria(x7,NULL,NULL)));
     TAB_imp_ident(a);
 
     printf("\n\n\n");
 
-    semPar = retira_pares(a);
-    TAB_imp_ident(semPar);
+    semX = retira_x(a, 5);
+    TAB_imp_ident(semX);
 
     TAB_libera(a);
-    TAB_libera(semPar);
+    TAB_libera(semX);
 
     return 0;
 }

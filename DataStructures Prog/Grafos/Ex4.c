@@ -13,7 +13,8 @@ int contaViz(TG* g){
 }
 
 int testek(TG *g, int k){
-    if (!g) return 1;
+    if (!g && k==0) return 1;
+    if (!g && k!=0) return 0;
     if (contaViz(g) != k) return 0;
     return testek(g->prox_no,k);
 }
