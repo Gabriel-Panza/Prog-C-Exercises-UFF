@@ -26,8 +26,8 @@ TARVB *TARVB_Libera(TARVB *a){
     free(a->chave);
     free(a->filho);
     free(a);
-    return NULL;
   }
+  return NULL;
 }
 
 

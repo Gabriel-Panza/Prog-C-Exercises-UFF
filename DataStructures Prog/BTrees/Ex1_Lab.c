@@ -44,7 +44,7 @@ int main(){
     b = TARVB_Insere(b,18,2);
     b = TARVB_Insere(b,66,2);
     b = TARVB_Insere(b,38,2);
-    b = TARVBM_insere(b,7,2);
+    b = TARVB_Insere(b,7,2);
 
     int tam=0;
     int *v = mN(b,20,&tam);
