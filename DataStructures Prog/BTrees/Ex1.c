@@ -3,19 +3,15 @@
 
 TARVB* copia_aux(TARVB* a, int tam) {
     if (!a) return NULL;
-    TARVB* b = TARVB_Cria(tam);
-    for (int i = 0; i < a->nchaves; i++) {
-        b = TARVB_Insere(b, a->chave[i], tam);
-        if (a->filho[i]) {
-            TARVB* filho_copiado = copia_aux(a->filho[i],tam);
-            b->filho[i] = filho_copiado;
-        }
+    TARVB* aux = TARVB_Cria(tam);
+    int i=0;
+    while (i<a->nchaves) {
+        aux = TARVB_Insere(aux, a->chave[i], tam);
+        aux->filho[i] = copia_aux(a->filho[i],tam);
+        i++;
     }
-    if (a->filho[a->nchaves]) {
-        TARVB* filho_copiado = copia_aux(a->filho[a->nchaves],tam);
-        b->filho[a->nchaves] = filho_copiado;
-    }
-    return b;
+    aux->filho[i] = copia_aux(a->filho[i],tam);
+    return aux;
 }
 TARVB* copia (TARVB *a){
     if (!a) return NULL;
@@ -38,7 +34,9 @@ int main(){
 
     TARVB *b_copia = copia(b);
     TARVB_Imprime(b);
-    printf("\n\n");
+    TARVB_Libera(b);
+    printf("\n----------------------------------\n");
     TARVB_Imprime(b_copia);
+    TARVB_Libera(b_copia);
     return 0;
 }
