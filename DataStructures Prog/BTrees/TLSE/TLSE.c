@@ -6,6 +6,19 @@ typedef struct listINT
     int lim_inferior,lim_superior;
     struct listINT *next;
 }TLSEINT;
+typedef struct list
+{
+    int elem;
+    struct list *next;
+}TLSE;
+
+TLSE *TLSE_insere_ini(TLSE *L, int elem)
+{
+    TLSE *new = (TLSE*) malloc(sizeof(TLSE));
+    new->elem = elem;
+    new->next = L;
+    return new;
+}
 
 TLSEINT *TLSEINT_insere_ini(TLSEINT *L, int elem1, int elem2)
 {

@@ -1,15 +1,21 @@
 #include <stdio.h>
 #include "TARVB/TARVB.c"
 
-TARVB* retira_pares(TARVB* arv){
-    if (!arv) return NULL;
+void retira_pares_aux(TARVB* arv, TARVB* node_raiz){
+    if (!arv) return;
     int i=0;
     while (i<arv->nchaves){
-        if(arv->chave[i]%2 == 0) arv = TARVB_Retira(arv,arv->chave[i],2);
-        arv->filho[i] = retira_pares(arv->filho[i]);
+        if(arv->chave[i]%2 == 0) {
+            node_raiz = TARVB_Retira(node_raiz,arv->chave[i],2);
+        }
+        retira_pares_aux(arv->filho[i], arv);
         i++;
     }
-    arv->filho[i] = retira_pares(arv->filho[i]);
+    retira_pares_aux(arv->filho[i], arv);
+}
+
+TARVB* retira_pares(TARVB* arv){
+    retira_pares_aux(arv,arv);
     return arv;
 }
 
@@ -31,5 +37,7 @@ int main(){
     b = retira_pares(b);
     TARVB_Imprime(b);
 
+    TARVB_Libera(b);
+    
     return 0;
 }

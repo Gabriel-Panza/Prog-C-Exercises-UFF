@@ -5,7 +5,7 @@ void contanodes(TARVB *a, int *cont){
     if (!a) return;
     int i=0;
     while(i<a->nchaves) {
-        if (a->folha) *(++cont);
+        if (a->folha) ++*cont;
         contanodes(a->filho[i],cont);
         i++;
     }
