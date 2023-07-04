@@ -1,5 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "heap.h"
 
 int esq(int ind){
   return (ind * 2 + 1);
@@ -14,6 +13,17 @@ int pai(int ind){
   return -1;
 }
 
+void min_heapfy(int *vet, int n, int ind){
+  int e = esq(ind), d = dir(ind), menor = ind;
+  if(e < n && vet[e] < vet[ind]) menor = e;
+  if(d < n && vet[d] < vet[menor]) menor = d;
+  if(menor != ind){
+    int temp = vet[ind];
+    vet[ind] = vet[menor];
+    vet[menor] = temp;
+    min_heapfy(vet, n, menor);
+  }
+}
 void max_heapfy(int *vet, int n, int ind){
   int e = esq(ind), d = dir(ind), maior = ind;
   if(e < n && vet[e] > vet[ind]) maior = e;
@@ -26,6 +36,11 @@ void max_heapfy(int *vet, int n, int ind){
   }
 }
 
+void build_min_heap(int *v, int n){
+  int i, ultimo_pai = pai(n - 1);
+  for(i = ultimo_pai; i >= 0; i--)
+    min_heapfy(v, n, i);
+}
 void build_max_heap(int *v, int n){
   int i, ultimo_pai = pai(n - 1);
   for(i = ultimo_pai; i >= 0; i--)
