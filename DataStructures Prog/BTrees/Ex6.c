@@ -25,7 +25,7 @@ TARVB* retira_pares(TARVB* a, int t){
 } 
 
 int main(){
-    int t = 3S;
+    int t = 3;
     TARVB *b = TARVB_Cria(t);
     b = TARVB_Insere(b,20,t);
     b = TARVB_Insere(b,50,t);
