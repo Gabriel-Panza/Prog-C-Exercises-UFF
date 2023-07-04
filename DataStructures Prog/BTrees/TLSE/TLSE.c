@@ -40,7 +40,15 @@ void TLSE_freeAll(TLSEINT *L)
         free(temp);
     }
 }
-void TLSE_freeAll_rec(TLSEINT *L)
+void TLSEINT_freeAll_rec(TLSEINT *L)
+{
+    if(L)
+    {
+        TLSEINT_freeAll_rec(L->next);
+        free(L);
+    }
+}
+void TLSE_freeAll_rec(TLSE *L)
 {
     if(L)
     {
@@ -59,12 +67,19 @@ void TLSE_print(TLSEINT *L)
     }
     printf("NULL\n");
 }
-void TLSE_print_rec(TLSEINT *L)
+void TLSEINT_print_rec(TLSEINT *L)
 {
     if(L)
     {
         printf("[%d/%d]->", L->lim_inferior,L->lim_superior);
+        TLSEINT_print_rec(L->next);
+    }
+}
+void TLSE_print_rec(TLSE *L)
+{
+    if(L)
+    {
+        printf("[%d]->", L->elem);
         TLSE_print_rec(L->next);
     }
-    printf("\n");
 }
