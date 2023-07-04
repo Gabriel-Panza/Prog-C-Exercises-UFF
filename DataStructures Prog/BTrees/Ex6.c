@@ -1,40 +1,46 @@
 #include <stdio.h>
 #include "TARVB/TARVB.c"
 
-void retira_pares_aux(TARVB* arv, TARVB* node_raiz){
-    if (!arv) return;
-    int i=0;
-    while (i<arv->nchaves){
-        if(arv->chave[i]%2 == 0) {
-            node_raiz = TARVB_Retira(node_raiz,arv->chave[i],2);
+TARVB* retira_pares(TARVB* a, int t);
+
+TARVB* retira_pares_aux (TARVB* a, TARVB *arv, int t){
+    if(!a) return arv;
+    int i = 0;
+    while(i < a->nchaves){
+        if((a->chave[i] % 2) == 0){
+            arv = TARVB_Retira(arv, a->chave[i], t);
+            break;
         }
-        retira_pares_aux(arv->filho[i], arv);
+        arv = retira_pares_aux (a->filho[i], arv, t);
         i++;
     }
-    retira_pares_aux(arv->filho[i], arv);
+    if(i != a->nchaves) arv = retira_pares(arv, t);
+    else arv = retira_pares_aux(a->filho[i], arv, t);
 }
 
-TARVB* retira_pares(TARVB* arv){
-    retira_pares_aux(arv,arv);
-    return arv;
-}
+TARVB* retira_pares(TARVB* a, int t){
+  if(!a) return a;
+  a = retira_pares_aux(a, a, t);
+  return a;
+} 
 
 int main(){
-    TARVB *b = TARVB_Cria(2);
-    b = TARVB_Insere(b,20,2);
-    b = TARVB_Insere(b,50,2);
-    b = TARVB_Insere(b,60,2);
-    b = TARVB_Insere(b,1,2);
-    b = TARVB_Insere(b,64,2);
-    b = TARVB_Insere(b,12,2);
-    b = TARVB_Insere(b,18,2);
-    b = TARVB_Insere(b,66,2);
-    b = TARVB_Insere(b,38,2);
-    b = TARVB_Insere(b,7,2);
-    b = TARVB_Insere(b,70,2);
+    int t = 3S;
+    TARVB *b = TARVB_Cria(t);
+    b = TARVB_Insere(b,20,t);
+    b = TARVB_Insere(b,50,t);
+    b = TARVB_Insere(b,60,t);
+    b = TARVB_Insere(b,1,t);
+    b = TARVB_Insere(b,64,t);
+    b = TARVB_Insere(b,12,t);
+    b = TARVB_Insere(b,18,t);
+    b = TARVB_Insere(b,66,t);
+    b = TARVB_Insere(b,38,t);
+    b = TARVB_Insere(b,7,t);
+    b = TARVB_Insere(b,70,t);
     TARVB_Imprime(b);
 
-    b = retira_pares(b);
+    b = retira_pares(b,t);
     TARVB_Imprime(b);
 
     TARVB_Libera(b);
