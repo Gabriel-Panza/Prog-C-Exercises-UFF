@@ -8,9 +8,32 @@ int dir(int ind){
   return (ind * 2 + 2);
 }
 
-int pai(int ind){
+int filho_i(int ind, int k, int i){
+  return (ind * k) + i;
+}
+
+int pai(int ind, int k){
   if(ind > 0) return (ind - 1)/2;
   return -1;
+}
+
+int filho_i(int ind, int k, int i){
+  return (ind*k)+i;
+}
+
+void min_heapfy_k(int *vet, int n, int ind, int k){
+  int menor = ind;
+  int filho;
+  for (int i=0; i<k; i++){
+    filho = filho_i(ind, k, i);
+    if(filho < n && vet[filho] < vet[ind]) menor = filho;
+  }
+  if(menor != ind){
+    int temp = vet[ind];
+    vet[ind] = vet[menor];
+    vet[menor] = temp;
+    min_heapfy(vet, n, menor);
+  }
 }
 
 void min_heapfy(int *vet, int n, int ind){
@@ -24,6 +47,8 @@ void min_heapfy(int *vet, int n, int ind){
     min_heapfy(vet, n, menor);
   }
 }
+
+
 void max_heapfy(int *vet, int n, int ind){
   int e = esq(ind), d = dir(ind), maior = ind;
   if(e < n && vet[e] > vet[ind]) maior = e;
