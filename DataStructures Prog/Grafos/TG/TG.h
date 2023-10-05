@@ -4,6 +4,7 @@
 
 typedef struct viz {
 	int id_viz;
+	int peso_aresta;
 	struct viz *prox_viz;
 }TVIZ;
 
