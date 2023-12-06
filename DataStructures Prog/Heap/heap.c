@@ -17,10 +17,6 @@ int pai(int ind, int k){
   return -1;
 }
 
-int filho_i(int ind, int k, int i){
-  return (ind*k)+i;
-}
-
 void min_heapfy_k(int *vet, int n, int ind, int k){
   int menor = ind;
   int filho;
