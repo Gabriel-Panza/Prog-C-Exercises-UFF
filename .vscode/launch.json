@@ -7,9 +7,9 @@
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "c:/Users/gabri/Documents/GitHub/Prog_C",
-      "program": "c:/Users/gabri/Documents/GitHub/Prog_C/build/Debug/outDebug",
+      "externalConsole": true,
+      "cwd": ".",
+      "program": "build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
