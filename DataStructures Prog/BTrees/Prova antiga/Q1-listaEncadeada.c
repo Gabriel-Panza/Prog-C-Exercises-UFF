@@ -8,17 +8,23 @@ TLSE *insere_ordenado(TLSE *L, int elem) {
     return L;
 }
 
-TLSE *insere_arvoreB_na_lista(TARVB *b, TLSE *L) {
+TLSE *insere_arvoreB_na_lista_aux(TARVB *b, TLSE *L) {
     if (!b) return L;
     int i;
     for (i = 0; i < b->nchaves; i++) {
         // Inserir os elementos da subárvore esquerda da chave atual
-        L = insere_arvoreB_na_lista(b->filho[i], L);
+        L = insere_arvoreB_na_lista_aux(b->filho[i], L);
         // Inserir a chave atual
         L = insere_ordenado(L, b->chave[i]);
     }
     // Inserir elementos da última subárvore (após a última chave)
-    L = insere_arvoreB_na_lista(b->filho[i], L);
+    L = insere_arvoreB_na_lista_aux(b->filho[i], L);
+    return L;
+}
+
+TLSE *insere_arvoreB_na_lista(TARVB *b) {
+    TLSE* L = initialize();
+    L = insere_arvoreB_na_lista_aux(b, L);
     return L;
 }
 
@@ -39,8 +45,7 @@ int main(){
     TARVB_Imprime(b);
     printf("\n----------------------------------\n");
 
-    TLSE* l = initialize();
-    l = insere_arvoreB_na_lista(b,l);
+    TLSE* l = insere_arvoreB_na_lista(b);
     TLSE_print(l);
     printf("\n----------------------------------\n");
     TARVB_Libera(b);

@@ -8,11 +8,17 @@ TLSE *insere_ordenado(TLSE *L, int elem) {
     return L;
 }
 
-TLSE *insere_arvore_na_lista(TAB *a, TLSE *L) {
+TLSE *insere_arvore_na_lista_aux(TAB *a, TLSE *L) {
     if (a == NULL) return L;
-    L = insere_arvore_na_lista(a->esq, L);
+    L = insere_arvore_na_lista_aux(a->esq, L);
     L = insere_ordenado(L, a->info);
-    L = insere_arvore_na_lista(a->dir, L);
+    L = insere_arvore_na_lista_aux(a->dir, L);
+    return L;
+}
+
+TLSE *insere_arvore_na_lista(TAB *a) {
+    TLSE* L = initialize();
+    L = insere_arvore_na_lista_aux(a, L);
     return L;
 }
 
@@ -23,8 +29,7 @@ int main()
     TAB_imp_ident(a);
     printf("\n\n");
     
-    TLSE* l = initialize();
-    l = insere_arvore_na_lista(a, l);
+    TLSE* l = insere_arvore_na_lista(a);
     TLSE_print(l);
     TAB_libera(a);
     freeAll(l);
