@@ -7,7 +7,7 @@ TLSE* copy (TLSE* l){
         return l;
     TLSE *copy = initialize(), *aux=l;
     while (aux){
-        copy = pushEnd(copy, aux->info);
+        copy = insertEnd(copy, aux->info);
         aux=aux->next;
     }
     return copy;

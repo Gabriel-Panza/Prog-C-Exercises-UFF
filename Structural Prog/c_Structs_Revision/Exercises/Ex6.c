@@ -7,13 +7,13 @@ TLSE* i_p (TLSE *l){
     TLSE *aux = l;
     while (aux){
         if (aux->info%2==0)
-            even = pushEnd(even, aux->info);
+            even = insertEnd(even, aux->info);
         else
-            odd = pushEnd(odd, aux->info);
+            odd = insertEnd(odd, aux->info);
         aux = aux->next;
     }
     while (even){
-        odd = pushEnd(odd, even->info);
+        odd = insertEnd(odd, even->info);
         even = even->next;
     }
     return odd;

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "TH.h"
+#include "TH/TH.h"
 
 int mi(char* arq1, char* arq2){
     FILE *f1 = fopen(arq1, "rb+");

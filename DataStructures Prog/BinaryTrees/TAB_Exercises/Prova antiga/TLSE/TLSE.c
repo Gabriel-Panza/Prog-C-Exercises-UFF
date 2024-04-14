@@ -12,7 +12,7 @@ TLSE *initialize()
     return NULL;
 }
 
-TLSE *pushStart(TLSE *L, int elem)
+TLSE *insertStart(TLSE *L, int elem)
 {
     TLSE *new = (TLSE*) malloc(sizeof(TLSE));
     new->info = elem;
@@ -24,7 +24,7 @@ TLSE *insertMiddle(TLSE *old, TLSE *L, int elem, int position) // Only works wit
     // CASE 1: empty/null List
     if(!L || position == 0) // L == NULL
     {
-        L = pushStart(L, elem);
+        L = insertStart(L, elem);
         return L;
     }
 
@@ -49,7 +49,7 @@ TLSE *insertMiddle(TLSE *old, TLSE *L, int elem, int position) // Only works wit
 }
 TLSE *insertEnd(TLSE *L, int elem)
 {
-    TLSE *new = pushStart(NULL,elem);
+    TLSE *new = insertStart(NULL,elem);
     // CASE 1: empty/null List
     if(!L) // L == NULL
         return new;
@@ -65,7 +65,7 @@ TLSE *insertEnd(TLSE *L, int elem)
 TLSE *pushEnd_rec(TLSE *L, int elem)
 {
     if (!L)
-        return pushStart(L,elem);
+        return insertStart(L,elem);
     L->next = pushEnd_rec(L->next,elem);
     return L;
 }
@@ -81,16 +81,16 @@ TLSE *pushSorted(TLSE *L, int elem) // Only works with sorted lists
 
     // CASE 1: empty/null List
     if (aux_old==NULL)
-        return pushStart(NULL,elem);
+        return insertStart(NULL,elem);
     // CASE 2: not empty/null List
-    aux_old->next = pushStart(aux_actual,elem);
+    aux_old->next = insertStart(aux_actual,elem);
     return L;
     
 }
 TLSE *pushSorted_rec(TLSE *L, int elem) // Only works with sorted lists
 {
     if((!L) || (L->info >= elem))
-        return pushStart(L,elem);
+        return insertStart(L,elem);
     L->next = pushSorted_rec(L->next,elem);
     return L;
 }
@@ -191,7 +191,7 @@ void print_inv(TLSE *L)
     TLSE *L_aux = initialize();
     while(aux)
     {
-        L_aux = pushStart(L_aux, aux->info);
+        L_aux = insertStart(L_aux, aux->info);
         aux = aux->next;
     }
     TLSE_print(L_aux);

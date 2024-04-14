@@ -22,7 +22,7 @@ TLSE *pushStart (TLSE *L, int elem)
     L->next = novo;
     return L;
 }
-TLSE *pushMiddle(TLSE *old, TLSE *L, int elem, int posicao)
+TLSE *insertMiddle(TLSE *old, TLSE *L, int elem, int posicao)
 {
     // CASE 1: empty/null List
     if(!L->next || posicao == 0) // L->next == NULL
@@ -35,7 +35,7 @@ TLSE *pushMiddle(TLSE *old, TLSE *L, int elem, int posicao)
     TLSE * actual = L;
     if (posicao>1)
     {
-        L->next = pushMiddle(L, L->next, elem, posicao-1);
+        L->next = insertMiddle(L, L->next, elem, posicao-1);
         return L;
     }
     old = actual;
@@ -50,7 +50,7 @@ TLSE *pushMiddle(TLSE *old, TLSE *L, int elem, int posicao)
     old->next = novo;
     return novo;
 }
-TLSE *pushEnd (TLSE *L, int elem)
+TLSE *insertEnd (TLSE *L, int elem)
 {
     // CASE 1: empty/null List
     if(!L->next) // L->next == NULL
@@ -111,10 +111,10 @@ int main()
     {
         printf("Type what element do you want to add: ");
         scanf("%d", &elem);
-        L = pushEnd (L, elem);
+        L = insertEnd (L, elem);
     }
 
-    L = pushMiddle(NULL, L, 2, 2);
+    L = insertMiddle(NULL, L, 2, 2);
     print(L);
     
     printf("Type what element do you want to remove: ");

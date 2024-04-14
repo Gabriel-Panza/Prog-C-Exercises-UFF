@@ -19,7 +19,7 @@ TLSE *pushStart(TLSE *L, int elem)
     new->next = L;
     return new;
 }
-TLSE *pushMiddle(TLSE *old, TLSE *L, int elem, int position) // Only works with valid positions
+TLSE *insertMiddle(TLSE *old, TLSE *L, int elem, int position) // Only works with valid positions
 {
     // CASE 1: empty/null List
     if(!L || position == 0) // L == NULL
@@ -32,7 +32,7 @@ TLSE *pushMiddle(TLSE *old, TLSE *L, int elem, int position) // Only works with 
     TLSE* atual = L;
     if (position>1)
     {
-        L->next = pushMiddle(L, L->next, elem, position-1);
+        L->next = insertMiddle(L, L->next, elem, position-1);
         return L;
     }
     old = atual;
@@ -47,7 +47,7 @@ TLSE *pushMiddle(TLSE *old, TLSE *L, int elem, int position) // Only works with 
     old->next = new;
     return old;
 }
-TLSE *pushEnd(TLSE *L, int elem)
+TLSE *insertEnd(TLSE *L, int elem)
 {
     TLSE *new = pushStart(NULL,elem);
     // CASE 1: empty/null List
@@ -215,10 +215,10 @@ int main()
     {
         printf("Type what element do you want to add: ");
         scanf("%d", &elem);
-        L = pushEnd (L, elem);
+        L = insertEnd (L, elem);
     }
 
-    L = pushMiddle(NULL, L, 2, 2);
+    L = insertMiddle(NULL, L, 2, 2);
     print(L);
     print_inv(L);
 

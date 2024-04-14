@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "TH.h"
+#include "TH/TH.h"
 
 void f(char *hash, char*dados, int N, int mat, float cr){ 
     FILE *fp = fopen(hash,"rb");
