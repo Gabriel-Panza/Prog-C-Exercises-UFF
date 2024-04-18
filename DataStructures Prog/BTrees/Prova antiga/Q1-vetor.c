@@ -1,44 +1,35 @@
 #include <stdio.h>
 #include "TARVB/TARVB.c"
 
-void len(TARVB*a, int *tam, int N){
+void len(TARVB*a, int *tam, int N, int M){
     if (!a) return;
     int i=0;
     while (i<a->nchaves){
-        if (a->chave[i]<N) ++*tam;
-        len(a->filho[i],tam,N);
+        if (a->chave[i]>N && a->chave[i]<M) ++*tam;
+        len(a->filho[i],tam,N,M);
         i++;
     }
-    len(a->filho[i],tam,N);
+    len(a->filho[i],tam,N,M);
 }
-void add_no_vetor(TARVB*a, int *vet, int N, int *pos){
+void add_no_vetor(TARVB*a, int *vet, int N, int M, int *pos){
     if (!a) return;
     int i=0;
     while (i<a->nchaves){
-        if(a->chave[i]<N) {
+        add_no_vetor(a->filho[i],vet,N,M,pos);
+        if(a->chave[i]>N && a->chave[i]<M) {
             vet[*pos] = a->chave[i];
             ++*pos;
         }
-        add_no_vetor(a->filho[i],vet,N,pos);
         i++;
     }
-    add_no_vetor(a->filho[i],vet,N,pos);
+    add_no_vetor(a->filho[i],vet,N,M,pos);
 }
-int *mN(TARVB*a, int N, int *tam){
+int *mN(TARVB*a, int N, int M, int *tam){
     if (!a) return NULL;
-    len(a,tam,N);
+    len(a,tam,N,M);
     int *vet = (int*) malloc((*tam)*sizeof(int));
     int pos=0;
-    add_no_vetor(a,vet,N,&pos);
-    for (int j=0; j<pos; j++){
-        for (int k=1; k<pos-j; j++){
-            if(vet[k-1]>vet[k]){
-                int temp = vet[k];
-                vet[k] = vet[k-1];
-                vet[k-1] = temp;
-            }
-        }
-    }
+    add_no_vetor(a,vet,N,M,&pos);
     return vet;
 }
 
@@ -57,7 +48,7 @@ int main(){
     b = TARVB_Insere(b,70,2);
 
     int tam=0;
-    int *lista = mN(b,40,&tam);
+    int *lista = mN(b,30,70,&tam);
     TARVB_Imprime(b);
     TARVB_Libera(b);
     printf("\n----------------------------------\n");
