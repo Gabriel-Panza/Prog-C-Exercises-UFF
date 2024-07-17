@@ -74,33 +74,33 @@ TVIZ* TG_busca_aresta(TG *g, int no1, int no2){
   return resp;
 }
 
-TG* TG_ins_no(TG *g, int x, int cor){
+TG* TG_ins_no(TG *g, int x){
   TG *p = TG_busca_no(g, x);
   if(!p){
     p = (TG*) malloc(sizeof(TG));
     p->id_no = x;
     p->prox_no = g;
     p->prim_viz = NULL;
-    p->cor = cor;
     g = p;
   }
   return g;
 }
 
-void TG_ins_um_sentido(TG *g, int no1, int no2){
+void TG_ins_um_sentido(TG *g, int no1, int no2, int peso){
   TG *p = TG_busca_no(g, no1);
   if(!p) return;
   TVIZ *nova = (TVIZ *) malloc(sizeof(TVIZ));
   nova->id_viz = no2;
+  nova->peso_aresta = peso;
   nova->prox_viz = p->prim_viz;
   p->prim_viz = nova;
 }
 
-void TG_ins_aresta(TG *g, int no1, int no2){
+void TG_ins_aresta(TG *g, int no1, int no2, int peso){
   TVIZ *v = TG_busca_aresta(g, no1, no2);
   if(v) return;
-  TG_ins_um_sentido(g, no1, no2);
-  TG_ins_um_sentido(g, no2, no1);
+  TG_ins_um_sentido(g, no1, no2, peso);
+  TG_ins_um_sentido(g, no2, no1, peso);
 }
 
 void TG_retira_um_sentido(TG *g, int no1, int no2){

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "TG.h"
+#include "TG/TG.h"
 
 TG* TG_busca_no(TG* g, int x){
   if((!g) || (g->id_no == x)) return g;

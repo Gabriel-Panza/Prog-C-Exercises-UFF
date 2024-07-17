@@ -5,7 +5,7 @@
 int suc (TARVB *a, int elem, int *superior){
     if (!a) return *superior;
     int i=0, j=0;
-    while (i<a->nchaves && a->chave[i]< elem) i++;
+    while (i<a->nchaves && a->chave[i]<elem) i++;
     while (j<a->nchaves){
         if(a->chave[j]<(*superior) && a->chave[j]>elem) (*superior) = a->chave[j];
         j++;
@@ -30,6 +30,7 @@ int main(){
     int superior = INT_MAX;
     int sucessor = suc(b,12,&superior);
     if (sucessor==INT_MIN) printf("Arvore Nula");
+    TARVB_Imprime(b);
     printf("O primeiro sucessor eh: %d", sucessor);
     return 0;
 }
